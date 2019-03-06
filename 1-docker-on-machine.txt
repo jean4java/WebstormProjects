@@ -1,0 +1,29 @@
+
+
+
+/**
+**
+** INSTALL DOCKER ON AWS LINUX
+
+  NB: if you happen to stop the EC2 , please when rebooting the server, restart with step 3 and run the docker images
+      to start a container
+**/
+
+1-- update the machine
+   yum update -y
+
+2-- install most recent docker community edition
+   amazon-linux-extras install docker
+
+3-- start docker service
+   service docker start
+
+4-- add username example ec2-user to the dokcer group so u can execute command without sudo
+   usermod -a -G docker ec2-user
+
+5-- verify that ec2-user can run docker without sudo
+   docker info
+
+-- use browser to see your jenkins UI
+
+

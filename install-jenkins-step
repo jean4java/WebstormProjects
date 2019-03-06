@@ -1,0 +1,41 @@
+
+
+
+- Fixing Locales in Ubuntu 13.04 on Amazon EC2
+  sudo apt-get install language-pack-en
+
+- Installing Jenkins
+  wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+  echo "deb http://pkg.jenkins-ci.org/debian binary/" | sudo tee -a /etc/apt/sources.list.d/jenkins.list
+  sudo apt-get update
+  sudo apt-get install jenkins
+
+- check if jenkins is running
+  ps -ef | grep jenkins
+
+- Install apache to proxy the requests from jenkins. bc we do not want to put 8080 at every request
+  sudo apt-get install apache2
+  sudo a2enmod proxy
+  sudo a2enmod proxy_http
+
+- Configuring Apache
+  <VirtualHost *:80>
+  	ServerName HOSTNAME
+  	ProxyRequests Off
+  	<Proxy *>
+  		Order deny,allow
+  		Allow from all
+  	</Proxy>
+  	ProxyPreserveHost on
+  	ProxyPass / http://localhost:8080/
+  </VirtualHost>
+
+- Enabling jenkins.conf   at sudo vi /etc/apache2/sites-available/jenkins.conf  . in vi to paste    :set paste   i paste
+  sudo a2ensite jenkins
+  sudo service apache2 reload
+
+- install java/maven/git
+  sudo add-apt-repository ppa:webupd8team/java
+  sudo apt-get update
+  sudo apt-get install oracle-java7-installer maven git-core
+

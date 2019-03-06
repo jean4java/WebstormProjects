@@ -1,0 +1,90 @@
+
+==================================== JENKINS
+- docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+
+
+- final jenkins github
+  docker run -p 8080:8080 -p 50000:50000 -v my-jenkins-master-folder:/var/jenkins_home --name jenkins-master jenkins/jenkins:lts
+
+  username  Omega and Omega1  and password Omega
+
+
+- final artifactory oss
+  docker run --name omega-artifactory -p 9080:8081 -v my-artifactory:/var/opt/jfrog/artifactory --ulimit nofile=98304:98304 68a6d5ca7fd4
+
+  username jean4java    password   Motaba2757
+           admin                   password
+
+======================================================== final registry    docker pull registry
+ docker run -d --name omega-registry -p 5000:5000 -v my-omega-docker-registry:/var/lib/registry 33fbbf4a24e5
+
+======================================================== DOCKER REGISTRY UI  . need to talk to the dokcer registry
+sudo docker run \
+  -d \
+  -e ENV_DOCKER_REGISTRY_HOST=172.17.0.4 \
+  -e ENV_DOCKER_REGISTRY_PORT=5000 \
+  -p 5080:80 \
+  konradkleine/docker-registry-frontend:v2
+
+========================================================== STATIC ANALYSIS TOOLS
+ pmd, checkstyles, findBugs, Cobertura, Jacoco
+
+==========================================================  SONAR    uname: admin  pass: admin   omega-sonarqube-token: a8706e411f79b0455e1a6cda1413669516d4f16b
+
+Sonar is a web based code quality analysis tool for Maven based Java projects
+it has all the following such as Covertura, PMD, FindBugs, Check Styles combined
+
+Setting up Sonar
+Download the latest release of Sonar from http://sonar.codehaus.org/downloads/.
+Unzip it to a folder, e.g. C:\Sonar
+Run C:\Sonar\bin\windows-x86-32\StartSonar.bat for Windows. There are several options available for other operating system such as Linux, Solaris.
+Browse to http://localhost:9000 . The browser will display a "No projects have been analyzed" message. This is a sanity check to see if Sonar is running properly.
+From within your project, run the following maven command: mvn clean install sonar:sonar
+Refresh the browser. The code quality related reports such as Complexity, Duplication, Violation, Rules of Compliance etc will be displayed.
+To customize the features using the admin console, login/password is admin/admin.
+
+
+
+sonar docker cmd :  docker run -d --name omega-sonarqube -p 9000:9000 -v omega-sonar-folder:/opt/sonarqube/ sonarqube
+
+- how to execute a java maven project from your machine
+
+mvn sonar:sonar \
+  -Dsonar.host.url=http://34.238.216.165:9000 \
+  -Dsonar.login=a8706e411f79b0455e1a6cda1413669516d4f16b
+
+
+======================================================================  JIRA
+jean4java     Motaba2757     protonmail
+
+http://34.238.216.165:10080/secure/WelcomeToJIRA.jspa.
+
+docker run -d -p 10080:8080 --name omega-jira -v omega-jira-folder:/var/atlassian/jira cptactionhank/atlassian-jira:latest
+
+
+====================================================  PLEX TV
+
+docker run --restart=always -d --name plex -h *your_host_name* -v my-omega-plex-config*:/config -v my-omega-plex-data:/data -p 32400:32400 timhaak/plex
+
+http://*ipaddress*:32400/web
+
+
+================================================ DOCKER HUB
+jean4java or jean4java1
+Motaba2757
+
+============================================== READ NEXTCLOUD INSTALLATION VIA DOCKER AND REVERSE PROXY
+
+https://blog.ssdnodes.com/blog/installing-nextcloud-docker/
+
+
+
+============================ vagrant and vm
+
+vagrant init https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+
+vagrant up
+
+https://app.vagrantup.com/boxes/search
+
+
